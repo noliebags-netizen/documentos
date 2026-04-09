@@ -6,335 +6,164 @@
 <title>Visualizador de Documentos - FADMINAS</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap');
-
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --bg: #1a1a1a;
-    --surface: #242424;
-    --header-bg: #1e1e1e;
-    --accent: #c8a252;
-    --accent2: #e8c47a;
-    --text: #f0f0f0;
-    --text-muted: #999;
-    --border: #333;
-    --shadow: 0 8px 40px rgba(0,0,0,0.6);
+    --bg: #1a1a1a; --surface: #242424; --header-bg: #1e1e1e;
+    --accent: #c8a252; --text: #f0f0f0; --text-muted: #999;
+    --border: #333; --shadow: 0 8px 40px rgba(0,0,0,0.6);
   }
-
-  html, body {
-    height: 100%;
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Barlow', sans-serif;
-  }
-
-  /* ── HEADER ── */
+  html, body { min-height: 100%; background: var(--bg); color: var(--text); font-family: 'Barlow', sans-serif; }
   .header {
-    background: var(--header-bg);
-    border-bottom: 1px solid #2e2e2e;
-    padding: 0 32px;
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    height: 80px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 2px 20px rgba(0,0,0,0.4);
+    background: var(--header-bg); border-bottom: 1px solid #2e2e2e;
+    padding: 10px 14px; display: flex; align-items: center; gap: 10px;
+    position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 20px rgba(0,0,0,0.4);
   }
-
   .back-btn {
-    width: 40px; height: 40px;
-    border-radius: 50%;
-    border: 1.5px solid var(--border);
-    background: transparent;
-    color: var(--text);
-    cursor: pointer;
-    display: flex; align-items: center; justify-content: center;
-    transition: all .2s;
-    flex-shrink: 0;
+    width: 34px; height: 34px; border-radius: 50%; border: 1.5px solid var(--border);
+    background: transparent; color: var(--text); cursor: pointer;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   }
-  .back-btn:hover { border-color: var(--accent); color: var(--accent); }
-
-  .header-info { flex: 1; }
-  .header-label {
-    font-size: 11px;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    font-weight: 500;
-    margin-bottom: 3px;
-  }
-  .header-title {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--text);
-    letter-spacing: 0.5px;
-  }
-
-  /* FADMINAS Logo */
-  .logo-fadminas {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-shrink: 0;
-  }
-  .logo-icon {
-    width: 44px; height: 44px;
-  }
-  .logo-text {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.1;
-  }
-  .logo-colegio {
-    font-size: 9px;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 500;
-  }
-  .logo-name {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 22px;
-    font-weight: 700;
-    color: var(--accent);
-    letter-spacing: 1px;
-  }
-
-  /* ── TOOLBAR ── */
+  .back-btn svg { width: 15px; height: 15px; }
+  .header-info { flex: 1; min-width: 0; }
+  .header-label { font-size: 8px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 500; }
+  .header-title { font-family: 'Barlow Condensed', sans-serif; font-size: 13px; font-weight: 700; line-height: 1.2; }
+  .logo-fadminas { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+  .logo-icon { width: 32px; height: 32px; }
+  .logo-colegio { font-size: 7px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; }
+  .logo-name { font-family: 'Barlow Condensed', sans-serif; font-size: 16px; font-weight: 700; color: var(--accent); }
   .toolbar {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 10px 32px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-
-  .toolbar-group {
-    display: flex; align-items: center; gap: 6px;
-  }
-  .toolbar-sep {
-    width: 1px; height: 24px; background: var(--border); margin: 0 4px;
+    background: var(--surface); border-bottom: 1px solid var(--border);
+    padding: 8px 14px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
   }
   .tool-btn {
-    background: transparent;
-    border: 1px solid var(--border);
-    color: var(--text-muted);
-    padding: 6px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-family: 'Barlow', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    display: flex; align-items: center; gap: 6px;
-    transition: all .2s;
+    background: transparent; border: 1px solid var(--border); color: var(--text-muted);
+    padding: 5px 10px; border-radius: 6px; cursor: pointer; font-family: 'Barlow', sans-serif;
+    font-size: 12px; font-weight: 500; display: flex; align-items: center; gap: 5px; white-space: nowrap;
   }
-  .tool-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(200,162,82,.08); }
-  .tool-btn svg { width:15px; height:15px; flex-shrink:0; }
-
-  .page-info {
-    font-size: 13px;
-    color: var(--text-muted);
-    padding: 6px 12px;
-  }
-
+  .tool-btn svg { width: 13px; height: 13px; }
+  .page-info { font-size: 12px; color: var(--text-muted); padding: 5px 6px; }
   .spacer { flex: 1; }
-
-  /* ── MAIN ── */
-  .main {
-    padding: 40px 20px 60px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 28px;
-    min-height: calc(100vh - 80px - 49px);
-  }
-
-  .doc-page {
-    width: 100%;
-    max-width: 860px;
-    background: #fff;
-    border-radius: 4px;
-    box-shadow: var(--shadow);
-    overflow: hidden;
-    position: relative;
-  }
-  .doc-page img {
-    width: 100%;
-    display: block;
-  }
-  .page-number {
-    position: absolute;
-    bottom: 12px;
-    right: 16px;
-    background: rgba(0,0,0,.45);
-    color: #fff;
-    font-size: 11px;
-    padding: 3px 8px;
-    border-radius: 20px;
-    backdrop-filter: blur(4px);
-  }
-
-  /* PDF embed fallback */
-  .pdf-viewer {
-    width: 100%;
-    max-width: 860px;
-  }
-  .pdf-embed {
-    width: 100%;
-    height: 1120px;
-    border: none;
-    border-radius: 4px;
-    box-shadow: var(--shadow);
-    display: block;
-    background: #fff;
-  }
-
-  /* ── BADGE validação ── */
+  .main { padding: 16px 10px 40px; display: flex; flex-direction: column; align-items: center; }
   .badge-valid {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(46,160,67,.12);
-    border: 1px solid rgba(46,160,67,.35);
-    color: #4caf50;
-    padding: 8px 18px;
-    border-radius: 40px;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: .5px;
-    margin-top: 8px;
+    display: inline-flex; align-items: center; gap: 7px;
+    background: rgba(46,160,67,.12); border: 1px solid rgba(46,160,67,.35);
+    color: #4caf50; padding: 7px 16px; border-radius: 40px;
+    font-size: 12px; font-weight: 600; margin-bottom: 16px;
   }
-  .badge-valid svg { width:16px; height:16px; }
-
-  /* ── FOOTER ── */
+  .badge-valid svg { width: 14px; height: 14px; }
+  .pdf-container { width: 100%; max-width: 860px; }
+  .pdf-page {
+    width: 100%; background: #fff; border-radius: 4px;
+    box-shadow: var(--shadow); margin-bottom: 20px; overflow: hidden; position: relative;
+  }
+  .pdf-page canvas { width: 100% !important; height: auto !important; display: block; }
+  .page-badge {
+    position: absolute; bottom: 10px; right: 12px;
+    background: rgba(0,0,0,.45); color: #fff; font-size: 10px;
+    padding: 2px 7px; border-radius: 20px;
+  }
+  .loading-msg { color: var(--text-muted); font-size: 14px; text-align: center; padding: 40px; }
   .footer {
-    text-align: center;
-    padding: 24px;
-    border-top: 1px solid var(--border);
-    color: var(--text-muted);
-    font-size: 12px;
-    background: var(--header-bg);
+    text-align: center; padding: 18px; border-top: 1px solid var(--border);
+    color: var(--text-muted); font-size: 11px; background: var(--header-bg);
   }
   .footer strong { color: var(--accent); }
 </style>
 </head>
 <body>
-
-<!-- HEADER -->
 <header class="header">
-  <button class="back-btn" onclick="history.back()" title="Voltar">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="15 18 9 12 15 6"/>
-    </svg>
+  <button class="back-btn" onclick="history.back()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
   </button>
-
   <div class="header-info">
-    <div class="header-label">Este documento pertence ao acervo:</div>
+    <div class="header-label">Pertence ao acervo:</div>
     <div class="header-title">COLÉGIO ADVENTISTA - FADMINAS</div>
   </div>
-
-  <!-- Logo FADMINAS -->
   <div class="logo-fadminas">
-    <svg class="logo-icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Stylized "A" adventist cross-shield -->
+    <svg class="logo-icon" viewBox="0 0 44 44" fill="none">
       <rect width="44" height="44" rx="8" fill="#1a1a2e"/>
       <path d="M22 6 L36 38 H28 L22 24 L16 38 H8 L22 6Z" fill="#c8a252" opacity="0.9"/>
       <rect x="12" y="26" width="20" height="3" rx="1.5" fill="#e8c47a"/>
     </svg>
-    <div class="logo-text">
-      <span class="logo-colegio">Colégio Adventista</span>
-      <span class="logo-name">FADMINAS</span>
+    <div>
+      <div class="logo-colegio">Colégio Adventista</div>
+      <div class="logo-name">FADMINAS</div>
     </div>
   </div>
 </header>
-
-<!-- TOOLBAR -->
 <div class="toolbar">
-  <div class="toolbar-group">
-    <button class="tool-btn" onclick="zoomOut()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
-      Diminuir
-    </button>
-    <span class="page-info" id="zoom-label">100%</span>
-    <button class="tool-btn" onclick="zoomIn()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
-      Aumentar
-    </button>
-  </div>
-
-  <div class="toolbar-sep"></div>
-
-  <div class="toolbar-group">
-    <span class="page-info">Páginas: <strong style="color:var(--text)">2</strong></span>
-  </div>
-
+  <button class="tool-btn" onclick="zoomOut()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="8" y1="11" x2="14" y2="11"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    Diminuir
+  </button>
+  <span class="page-info" id="zoom-label">100%</span>
+  <button class="tool-btn" onclick="zoomIn()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    Aumentar
+  </button>
   <div class="spacer"></div>
-
   <button class="tool-btn" id="download-btn">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
     Download
   </button>
 </div>
-
-<!-- MAIN CONTENT -->
-<main class="main" id="main-content">
-
+<main class="main">
   <div class="badge-valid">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
-    </svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
     Documento Autêntico · Verificado
   </div>
-
-  <!-- PDF Viewer via embed -->
-  <div class="pdf-viewer" id="pdf-container">
-    <embed
-      id="pdf-embed"
-      class="pdf-embed"
-      src="CLEIDIANE_qr_atualizado.pdf"
-      type="application/pdf"
-    />
+  <div class="pdf-container" id="pdf-container">
+    <div class="loading-msg">Carregando documento...</div>
   </div>
-
 </main>
-
-<!-- FOOTER -->
 <footer class="footer">
-  Documento emitido e validado pelo <strong>Colégio Adventista - FADMINAS</strong> &nbsp;·&nbsp; Lavras - MG
+  Documento emitido e validado pelo <strong>Colégio Adventista - FADMINAS</strong> · Lavras - MG
 </footer>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 <script>
-  let zoom = 1;
-  const container = document.querySelector('.pdf-viewer');
-  const embed = document.getElementById('pdf-embed');
-  const label = document.getElementById('zoom-label');
-
-  function zoomIn() {
-    zoom = Math.min(zoom + 0.15, 2.5);
-    applyZoom();
+  const PDF_URL = 'HISTORICO_001409.pdf';
+  let pdfDoc = null, scale = 1.5;
+  pdfjsLib.GlobalWorkerOptions.workerSrc =
+    'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  const container = document.getElementById('pdf-container');
+  async function renderPDF() {
+    container.innerHTML = '<div class="loading-msg">Carregando...</div>';
+    try {
+      pdfDoc = await pdfjsLib.getDocument(PDF_URL).promise;
+      container.innerHTML = '';
+      for (let n = 1; n <= pdfDoc.numPages; n++) {
+        const page = await pdfDoc.getPage(n);
+        const vp = page.getViewport({ scale });
+        const wrap = document.createElement('div');
+        wrap.className = 'pdf-page';
+        const canvas = document.createElement('canvas');
+        canvas.width = vp.width;
+        canvas.height = vp.height;
+        const badge = document.createElement('div');
+        badge.className = 'page-badge';
+        badge.textContent = n + '/' + pdfDoc.numPages;
+        wrap.appendChild(canvas);
+        wrap.appendChild(badge);
+        container.appendChild(wrap);
+        await page.render({ canvasContext: canvas.getContext('2d'), viewport: vp }).promise;
+      }
+    } catch(e) {
+      container.innerHTML = '<div class="loading-msg">Erro ao carregar o documento.</div>';
+    }
   }
-  function zoomOut() {
-    zoom = Math.max(zoom - 0.15, 0.5);
-    applyZoom();
+  function zoomIn() { scale = Math.min(scale + 0.3, 4); updateZoom(); }
+  function zoomOut() { scale = Math.max(scale - 0.3, 0.5); updateZoom(); }
+  function updateZoom() {
+    document.getElementById('zoom-label').textContent = Math.round(scale / 1.5 * 100) + '%';
+    renderPDF();
   }
-  function applyZoom() {
-    const pct = Math.round(zoom * 100);
-    label.textContent = pct + '%';
-    embed.style.height = Math.round(1120 * zoom) + 'px';
-  }
-
-  // Download button — triggers PDF download
   document.getElementById('download-btn').addEventListener('click', () => {
     const a = document.createElement('a');
-    a.href = 'CLEIDIANE_qr_atualizado.pdf';
+    a.href = PDF_URL;
     a.download = 'Historico_Escolar_FADMINAS.pdf';
     a.click();
   });
+  renderPDF();
 </script>
 </body>
 </html>
